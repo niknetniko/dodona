@@ -26,7 +26,8 @@ class CoursesPermissionControllerTest < ActionDispatch::IntegrationTest
   end
 
   setup do
-    @course = create :course, series_count: 10, exercises_per_series: 5, submissions_per_exercise: 5
+    # c = count_queries do
+    @course = create :course, series_count: 1, exercises_per_series: 1, submissions_per_exercise: 1
     _zeus_extern = create :zeus
     _zeus_intern = create :zeus
 
@@ -49,6 +50,8 @@ class CoursesPermissionControllerTest < ActionDispatch::IntegrationTest
     @not_subscribed = @externals + @unsubscribed + @pending
 
     @not_admins = @students + @unsubscribed + @pending + @externals + [nil]
+    # end
+    # puts "COUNT IS #{c}"
   end
 
   # execute the block with each user signed in
