@@ -59,6 +59,25 @@ jobs:
         bundle config path
         bundle install --jobs 4 --retry 3
         yarn install
+    - name: Cache public assets
+      uses: actions/cache@v1
+      with:
+        path: /__w/dodona/dodona/public/assets
+        key: ${{ runner.os }}-assets
+        restore-keys: |
+          ${{ runner.os }}-assets
+    - name: Cache tmp assets
+      uses: actions/cache@v1
+      with:
+        path: /__w/dodona/dodona/tmp/cache/assets
+        key: ${{ runner.os }}-tmp-assets
+        restore-keys: |
+          ${{ runner.os }}-tmp-assets
+    - name: Precompile assets
+      env:
+        CI: true
+      run: |
+        bundle exec rake assets:precompile
     - name: Run tests
       env:
         CI: true
