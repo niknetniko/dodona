@@ -532,6 +532,11 @@ class ExerciseTest < ActiveSupport::TestCase
     series.exercises.destroy(@exercise)
     assert_not_equal old_token, @exercise.reload.access_token
   end
+
+  test 'full_path returns something even if path is nil' do
+    exercise = create :exercise, path: nil
+    assert_not exercise.full_path.exist?
+  end
 end
 
 class ExerciseRemoteTest < ActiveSupport::TestCase

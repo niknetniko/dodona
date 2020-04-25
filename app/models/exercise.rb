@@ -78,9 +78,7 @@ class Exercise < ApplicationRecord
   scope :by_programming_language, ->(programming_language) { includes(:programming_language).where(programming_languages: { name: programming_language }) }
 
   def full_path
-    return '' unless path
-
-    Pathname.new File.join(repository.full_path, path)
+    Pathname.new(path ? File.join(repository.full_path, path) : '')
   end
 
   def media_path
